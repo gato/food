@@ -54,7 +54,6 @@ class Foods(Resource):
             '269': args['sugar']
         }
         #print(filters)
-
         def matches(food):
             for k, v in filters.items():
                 gms = food['nutrients'][k]['gm']
