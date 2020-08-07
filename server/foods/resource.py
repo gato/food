@@ -60,5 +60,5 @@ class Foods(Resource):
                 if gms < v[0] or (gms >v[1] and v[1] != -1):
                     return False
             return True
-
-        return list(filter(matches, FOOD_DB.values()))[offset:offset+size]
+        foods = list(filter(matches, FOOD_DB.values())) 
+        return foods[offset:offset+size], 200, {'total-food-count': len(foods)}
