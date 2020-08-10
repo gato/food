@@ -6,7 +6,7 @@ import {Filter} from './Filter';
 
 type SearchNutrientProps = {
   filter: Filter,
-  update: (filter:Filter) => void
+  updateMinMax: (min: number, max: number) => void
 }
 
 const useStyles = makeStyles({
@@ -19,12 +19,12 @@ function valuetext(value:any) {
   return `${value} gm`;
 }
 
-export const SearchNutrient : FunctionComponent<SearchNutrientProps> = ({filter, update}) => {
+export const SearchNutrient : FunctionComponent<SearchNutrientProps> = ({filter, updateMinMax}) => {
 
   const classes = useStyles();
 
   const handleChange = (event:any, newValue:any) => {
-    update(Object.assign({}, filter, {min:newValue[0], max:newValue[1]}));
+    updateMinMax(newValue[0], newValue[1]);
   };
 
   const formatValue = () => {

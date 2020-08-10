@@ -11,14 +11,15 @@ type SearchBoxProps = {
 
 export const SearchBox : FunctionComponent<SearchBoxProps> = ({filters, changeFilters}) => {
 
-  const updateMinMax = (index:number , filter:Filter) => {
-    filters[index] = filter
-    changeFilters([...filters]);
+  const updateMinMax = (index:number , min:number, max:number) => {
+    filters = [...filters]
+    filters[index] = Object.assign({}, filters[index], {min:min, max:max});
+    changeFilters(filters);
   }
 
   return (
     <Container maxWidth="sm">
-      {filters.map( (f, i) => (<SearchNutrient key={i} filter={f} update={(filter)=>updateMinMax(i, filter)}/>))}       
+      {filters.map( (f, i) => (<SearchNutrient key={i} filter={f} updateMinMax={(min, max)=>updateMinMax(i, min, max)}/>))}       
       <Button variant="contained">Search</Button>
     </Container>
   );
