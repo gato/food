@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
@@ -23,18 +23,16 @@ function valuetext(value:any) {
 export const SearchNutrient : FunctionComponent<SearchNutrientProps> = ({title, min, max, updateMinMax}) => {
 
   const classes = useStyles();
-  const [value, setValue] = useState([min, max]);
 
   const handleChange = (event:any, newValue:any) => {
     updateMinMax(newValue[0], newValue[1]);
-    setValue(newValue);
   };
 
   const formatValue = () => {
-    if (value[0] === value[1]) {
-      return `${value[0]} gms.`;
+    if (min === max) {
+      return `${min} gms.`;
     }
-    return `${value[0]} gms. upto ${value[1]} `;
+    return `${min} gms. upto ${max} `;
   }
 
   return (
@@ -43,7 +41,7 @@ export const SearchNutrient : FunctionComponent<SearchNutrientProps> = ({title, 
         {title}: {formatValue()}
       </Typography>
       <Slider
-        value={/*[min, max]*/value}
+        value={[min, max]}
         onChange={handleChange}
         valueLabelDisplay="auto"
         min={0}
