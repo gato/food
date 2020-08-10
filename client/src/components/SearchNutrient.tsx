@@ -2,12 +2,11 @@ import React, { FunctionComponent} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import {Filter} from './Filter';
 
 type SearchNutrientProps = {
-  title: string
-  min: number
-  max: number
-  updateMinMax: any
+  filter: Filter,
+  update: (filter:Filter) => void
 }
 
 const useStyles = makeStyles({
@@ -20,28 +19,28 @@ function valuetext(value:any) {
   return `${value} gm`;
 }
 
-export const SearchNutrient : FunctionComponent<SearchNutrientProps> = ({title, min, max, updateMinMax}) => {
+export const SearchNutrient : FunctionComponent<SearchNutrientProps> = ({filter, update}) => {
 
   const classes = useStyles();
 
   const handleChange = (event:any, newValue:any) => {
-    updateMinMax(newValue[0], newValue[1]);
+    update(Object.assign({}, filter, {min:newValue[0], max:newValue[1]}));
   };
 
   const formatValue = () => {
-    if (min === max) {
-      return `${min} gms.`;
+    if (filter.min === filter.max) {
+      return `${filter.min} gms.`;
     }
-    return `${min} gms. upto ${max} `;
+    return `${filter.min} gms. upto ${filter.max} `;
   }
 
   return (
     <div className={classes.root}>
       <Typography id="range-slider" gutterBottom>
-        {title}: {formatValue()}
+        {filter.title}: {formatValue()}
       </Typography>
       <Slider
-        value={[min, max]}
+        value={[filter.min, filter.max]}
         onChange={handleChange}
         valueLabelDisplay="auto"
         min={0}

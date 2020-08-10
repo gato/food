@@ -1,7 +1,4 @@
 import React, {useState, useEffect} from 'react';
-// import Button from '@material-ui/core/Button';
-// import {SearchNutrient} from './components/SearchNutrient'
-// import Container from '@material-ui/core/Container';
 import {SearchBox} from './components/searchBox'
 import './App.css';
 
@@ -20,10 +17,6 @@ const initialFilters = [
 function App() {
 
   let [filters, setFilters] = useState(initialFilters)
-
-  // const changeFilters = (newFilters: Array<any>) => {
-  //   setFilters(newFilters);
-  // }
 
   useEffect(() => {
     console.log('APPS: filters have changed!');
