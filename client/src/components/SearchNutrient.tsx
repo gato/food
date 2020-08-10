@@ -31,7 +31,8 @@ export const SearchNutrient : FunctionComponent<SearchNutrientProps> = ({filter,
     if (filter.min === filter.max) {
       return `${filter.min} gms.`;
     }
-    return `${filter.min} gms. upto ${filter.max} `;
+    const plus = filter.max === 10 ? '+' : ''
+    return `${filter.min} gms. upto ${filter.max}${plus} `;
   }
 
   return (

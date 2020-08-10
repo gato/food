@@ -6,10 +6,11 @@ import {Filter} from './Filter';
 
 type SearchBoxProps = {
   filters: Array<Filter>,
-  changeFilters: (filters:Array<Filter>) => void
+  changeFilters: (filters:Array<Filter>) => void, 
+  onSearch: () => void
 };
 
-export const SearchBox : FunctionComponent<SearchBoxProps> = ({filters, changeFilters}) => {
+export const SearchBox : FunctionComponent<SearchBoxProps> = ({filters, changeFilters, onSearch}) => {
 
   const updateMinMax = (index:number , min:number, max:number) => {
     filters = [...filters]
@@ -18,9 +19,9 @@ export const SearchBox : FunctionComponent<SearchBoxProps> = ({filters, changeFi
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       {filters.map( (f, i) => (<SearchNutrient key={i} filter={f} updateMinMax={(min, max)=>updateMinMax(i, min, max)}/>))}       
-      <Button variant="contained">Search</Button>
+      <Button variant="contained" onClick={onSearch}>Search</Button>
     </Container>
   );
 }
