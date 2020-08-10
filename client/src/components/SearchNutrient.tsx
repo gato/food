@@ -12,7 +12,7 @@ type SearchNutrientProps = {
 const useStyles = makeStyles({
   root: {
     width: 300,
-  },
+  }
 });
 
 function valuetext(value:any) {

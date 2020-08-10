@@ -6,8 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
-import Container from '@material-ui/core/Container';
 
 import {Food} from './Food';
 
@@ -19,9 +19,16 @@ const useStyles = makeStyles({
 
 type FoodTableProps = {
   foodList: Array<Food>
+  page: number, 
+  pageSize: number,
+  totalCount: number,
+  onPageChange: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void,
+  onPageSizeChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void
 };
 
-export const FoodTable : FunctionComponent<FoodTableProps> = ({foodList}) => {
+export const FoodTable : FunctionComponent<FoodTableProps> = ({foodList, page, pageSize, totalCount, onPageChange, onPageSizeChange }) => {
   const classes = useStyles();
   let body = (<TableBody><i>Food no Found</i> </TableBody>);
   if (foodList.length !== 0) {
@@ -41,7 +48,6 @@ export const FoodTable : FunctionComponent<FoodTableProps> = ({foodList}) => {
       </TableBody>);
   }
   return (
-    <Container maxWidth="lg">
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -56,7 +62,15 @@ export const FoodTable : FunctionComponent<FoodTableProps> = ({foodList}) => {
           </TableHead>
           {body}
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[4, 8, 12, 16]}
+          component="div"
+          count={totalCount}
+          rowsPerPage={pageSize}
+          page={page}
+          onChangePage={onPageChange}
+          onChangeRowsPerPage={onPageSizeChange}
+        />        
       </TableContainer>
-    </Container>
   ) ;
 }
