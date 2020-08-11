@@ -4,7 +4,9 @@ import {Filter} from './components/Filter'
 import {FoodTable} from './components/FoodTable'
 import {Food} from './components/Food'
 import './App.css';
-import { Container } from '@material-ui/core';
+import { Container, AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const PROTEINS = {name:'Proteins', id:'prot', nutrient: 203};
 const FAT = {name:'Fat', id:'fat', nutrient: 204};
@@ -13,10 +15,10 @@ const CARBS = {name:'Carbs', id:'carb', nutrient: 205};
 const CALS = {name:'Calories', id:'cal', nutrient: 208};
 
 const initialFilters:Array<Filter> = [
-  { id: PROTEINS.id, title: PROTEINS.name , min:0, max:10 },
-  { id: FAT.id, title: FAT.name , min:0, max:10 },
-  { id: SUGAR.id, title: SUGAR.name , min:0, max:10 },
-  { id: CARBS.id, title: CARBS.name , min:0, max:10 }
+  { id: PROTEINS.id, title: PROTEINS.name , min:0, max:5 },
+  { id: FAT.id, title: FAT.name , min:0, max:5 },
+  { id: SUGAR.id, title: SUGAR.name , min:0, max:5 },
+  { id: CARBS.id, title: CARBS.name , min:0, max:5 }
 ];
 
 const initialFoodList: Array<Food> = []
@@ -26,7 +28,38 @@ const initialPagination = {
   currentPage: 0
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },  
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
+}));
+
+
 function App() {
+
+  const classes = useStyles();
 
   const [filters, setFilters] = useState(initialFilters);
   const [foodList, setFoodList] = useState(initialFoodList);
@@ -78,7 +111,7 @@ function App() {
     fetchData(0, parseInt(event.target.value, 10));
   };  
 
-  let results = (<div><br/>press search to retrieve food</div>)
+  let results = (<div/>)
   if (foodList !== initialFoodList) {
     results = (
       <FoodTable foodList={foodList} page={pagination.currentPage} pageSize={pagination.pageSize} totalCount={pagination.totalCount} onPageChange={handlePageChange} onPageSizeChange={handlePageSizeChange}/>
@@ -86,12 +119,27 @@ function App() {
   }
 
   return (
-    <div>
-      <SearchBox filters={filters} changeFilters={(newFilters: Array<Filter>) => setFilters(newFilters)} onSearch={handleSearch}/>
-      <br/><br/>
-      <Container maxWidth="lg">
-        {results}
-      </Container>
+    <div className={classes.root}>
+        <main className={classes.content}>
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                  Food Search
+                </Typography>
+                <Button color="inherit">Login</Button>
+              </Toolbar>
+            </AppBar>
+          </div>          
+          <Container maxWidth="lg" className={classes.container}>
+            <SearchBox filters={filters} changeFilters={(newFilters: Array<Filter>) => setFilters(newFilters)} onSearch={handleSearch}/>
+            <br/>
+            {results}
+          </Container>
+        </main>
     </div>
   );
 }

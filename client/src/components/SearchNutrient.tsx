@@ -11,7 +11,9 @@ type SearchNutrientProps = {
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: '100%',
+    paddingLeft: '1em',
+    paddingRight: '1em',
   }
 });
 

@@ -13,7 +13,7 @@ import {Food} from './Food';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 400,
   },
 });
 
