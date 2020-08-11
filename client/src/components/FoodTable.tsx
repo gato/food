@@ -30,7 +30,7 @@ type FoodTableProps = {
 
 export const FoodTable : FunctionComponent<FoodTableProps> = ({foodList, page, pageSize, totalCount, onPageChange, onPageSizeChange }) => {
   const classes = useStyles();
-  let body = (<TableBody><i>Food no Found</i> </TableBody>);
+  let body = (<TableBody><i>Food not Found</i> </TableBody>);
   if (foodList.length !== 0) {
     body = (<TableBody>{
       foodList.map((food) => (
