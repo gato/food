@@ -17,10 +17,10 @@ services:
     build: ./client
     hostname: client
     labels:
-      - "traefik.http.routers.front.rule=Host(`food.localhost`)"
+      - "traefik.http.routers.front.rule=PathPrefix(`/`)"
   api:
     build: ./server
     hostname: server
     labels:
-      - "traefik.http.routers.api.rule=Host(`food.localhost`) && PathPrefix(`/foods`)"
+      - "traefik.http.routers.api.rule=PathPrefix(`/foods`)"
       - "traefik.http.services.api.loadbalancer.server.port=5000"
